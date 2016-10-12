@@ -1,0 +1,12 @@
+82906db192d5d7d4484f4aa32dd04ec3 *DESCRIPTION
+ae2a6898f2a2584fb6d8f55e8e983363 *NAMESPACE
+73f7480f64461ea56fbdb26857942bde *R/prisma.r
+8cd3cead1f5f377b0f2e1d1e6cca1207 *build/vignette.rds
+3b69d3e247e4cf3b951f51127b60f491 *inst/doc/PRISMA.R
+6ee6f04fbe65daff26383e9541d46a49 *inst/doc/PRISMA.Rmd
+78ef119b34bb542f89adb79deef53545 *inst/doc/PRISMA.html
+29eb0746fa4ba42d016808dc5861369c *man/prisma.Rd
+408101cb64cad55b9e05d0b8f167f22b *tests/testthat.R
+5880cbc17752f3d3abcb21d00f5243db *tests/testthat/test-prisma.r
+6ee6f04fbe65daff26383e9541d46a49 *vignettes/PRISMA.Rmd
+e4b2d229543ffaad2dc0640172a8c42d *vignettes/PRISMA.bib

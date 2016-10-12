@@ -1,0 +1,45 @@
+---
+title: "Make PRISMA flow chart"
+author: "Jack O. Wasey"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: PRISMA.bib
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+suppressPackageStartupMessages(library(DiagrammeR))
+```
+
+# The PRISMA Statement
+
+This package plots a [PRISMA](http://prisma-statement.org/) flow chart
+    describing the identification, screening, eligibility and inclusion or studies in
+    systematic reviews. PRISMA is an evidence-based minimum set of items for reporting
+    in systematic reviews and meta-analyses. PRISMA focuses on the reporting of reviews
+    evaluating randomized trials, but can also be used as a basis for reporting
+    systematic reviews of other types of research, particularly evaluations of
+    interventions. [@moher_preferred_2009]
+
+# Generate a PRISMA flow chart
+
+```{r prisma}
+library(PRISMAstatement)
+
+prisma(found = 750,
+       found_other = 123,
+       no_dupes = 776, 
+       screened = 776, 
+       screen_exclusions = 13, 
+       full_text = 763,
+       full_text_exclusions = 17, 
+       qualitative = 746, 
+       quantitative = 319,
+       width = 800, height = 800)
+```
+
+# References
