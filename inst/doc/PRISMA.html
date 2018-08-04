@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jack O. Wasey" />
 
-<meta name="date" content="2018-07-19" />
+<meta name="date" content="2018-08-04" />
 
 <title>Make a PRISMA flow chart</title>
 
@@ -2533,7 +2533,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Make a PRISMA flow chart</h1>
 <h4 class="author"><em>Jack O. Wasey</em></h4>
-<h4 class="date"><em>2018-07-19</em></h4>
+<h4 class="date"><em>2018-08-04</em></h4>
 
 
 
@@ -2543,24 +2543,25 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="generate-a-prisma-flow-chart" class="section level1">
 <h1>Generate a PRISMA flow chart</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(PRISMAstatement)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">prisma</span>(<span class="dt">found =</span> <span class="dv">750</span>,</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">       <span class="dt">found_other =</span> <span class="dv">123</span>,</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">       <span class="dt">no_dupes =</span> <span class="dv">776</span>, </a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">       <span class="dt">screened =</span> <span class="dv">776</span>, </a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">       <span class="dt">screen_exclusions =</span> <span class="dv">13</span>, </a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">       <span class="dt">full_text =</span> <span class="dv">763</span>,</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">       <span class="dt">full_text_exclusions =</span> <span class="dv">17</span>, </a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">       <span class="dt">qualitative =</span> <span class="dv">746</span>, </a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">       <span class="dt">quantitative =</span> <span class="dv">319</span>,</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">       <span class="dt">width =</span> <span class="dv">800</span>, <span class="dt">height =</span> <span class="dv">800</span>)</a></code></pre></div>
-<div id="htmlwidget-6faf823178efedd8c657" style="width:800px;height:800px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6faf823178efedd8c657">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 72]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\nwith reasons\n(n = 17)\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#install.packages(&quot;PRISMAstatement&quot;)</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(PRISMAstatement)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">prisma</span>(<span class="dt">found =</span> <span class="dv">750</span>,</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">       <span class="dt">found_other =</span> <span class="dv">123</span>,</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">       <span class="dt">no_dupes =</span> <span class="dv">776</span>, </a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">       <span class="dt">screened =</span> <span class="dv">776</span>, </a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">       <span class="dt">screen_exclusions =</span> <span class="dv">13</span>, </a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">       <span class="dt">full_text =</span> <span class="dv">763</span>,</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">       <span class="dt">full_text_exclusions =</span> <span class="dv">17</span>, </a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">       <span class="dt">qualitative =</span> <span class="dv">746</span>, </a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">       <span class="dt">quantitative =</span> <span class="dv">319</span>,</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">       <span class="dt">width =</span> <span class="dv">800</span>, <span class="dt">height =</span> <span class="dv">800</span>)</a></code></pre></div>
+<div id="htmlwidget-f865be7cd72c6230fc87" style="width:800px;height:800px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f865be7cd72c6230fc87">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 72]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="take-care-modifying-the-width-height-and-dpi" class="section level1">
-<h1>Take care modifying the width, height and DPI</h1>
-<p>For publication quality graphics, a certain number of DPI is often requested. This is difficult to achieve with the chain of tools that PRISMAstatement uses (DiagrammeR, htmlwidgets), and also affected by the output container which may be a PDF vignette, file, browser window, etc..</p>
+<div id="tweaks" class="section level1">
+<h1>Tweaks</h1>
+<p>Ideally, you will stick closely to the PRISMA statement, but small deviations are common. <code>PRISMAstatement</code> gives the option of adding a box which simply calculates the number of duplicates removed.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dt">found =</span> <span class="dv">750</span>,</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">       <span class="dt">found_other =</span> <span class="dv">123</span>,</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">       <span class="dt">no_dupes =</span> <span class="dv">776</span>, </a>
@@ -2570,46 +2571,89 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb2-7" data-line-number="7">       <span class="dt">full_text_exclusions =</span> <span class="dv">17</span>, </a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">       <span class="dt">qualitative =</span> <span class="dv">746</span>, </a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">       <span class="dt">quantitative =</span> <span class="dv">319</span>,</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">       <span class="dt">width =</span> <span class="dv">200</span>, <span class="dt">height =</span> <span class="dv">200</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-10" data-line-number="10">       <span class="dt">extra_dupes_box =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div id="htmlwidget-adcbbef9a1ec4ea65bbd" style="width:288px;height:288px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-adcbbef9a1ec4ea65bbd">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 72]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> {incex; dups};\n       nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n       dups [label=\"Duplicates excluded\n(n = 97)\"]; {rank=same; nodups dups}\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>You can also change the labels, but you will have to insert the number for any label you change. E.g.,</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dv">1000</span>, <span class="dv">20</span>, <span class="dv">270</span>, <span class="dv">270</span>, <span class="dv">10</span>, <span class="dv">260</span>, <span class="dv">20</span>, <span class="dv">240</span>, <span class="dv">107</span>,</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">       <span class="dt">labels =</span> <span class="kw">list</span>(<span class="dt">found =</span> <span class="st">&quot;FOUND&quot;</span>, <span class="dt">found_other =</span> <span class="st">&quot;OTHER&quot;</span>))</a></code></pre></div>
+<div id="htmlwidget-04031605d60fe620d7c4" style="width:288px;height:288px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-04031605d60fe620d7c4">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 72]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"FOUND\"];\n    b [label=\"OTHER\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 270)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 270)\"];\n\n    ex [label=\"Records excluded\n(n = 10)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 260)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 240)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 107)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="safety" class="section level1">
+<h1>Safety</h1>
+<p>There are some hard constraints on the relationships between the numbers in each box, which are enforced by the <code>prisma</code> function. There are a couple of warnings given when it seems that numerically valid, but unlikely numbers are given: studies shouldn’t just disappear between each step. Arguably this is a hard stop, but there might be circumstances when additional exclusions are made which could be annotated in a figure caption.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">tryCatch</span>(</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="kw">prisma</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>),</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="dt">error =</span> <span class="cf">function</span>(e) e<span class="op">$</span>message)</a></code></pre></div>
+<pre><code>## [1] &quot;screened &lt;= no_dupes is not TRUE&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dv">1000</span>, <span class="dv">20</span>, <span class="dv">270</span>, <span class="dv">270</span>, <span class="dv">10</span>, <span class="dv">260</span>, <span class="dv">19</span>, <span class="dv">240</span>, <span class="dv">107</span>, </a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">       <span class="dt">width =</span> <span class="dv">100</span>, <span class="dt">height =</span> <span class="dv">100</span>)</a></code></pre></div>
+<pre><code>## Warning in prisma(1000, 20, 270, 270, 10, 260, 19, 240, 107, width = 100, :
+## After full-text exclusions, a different number of remaining articles for
+## qualitative synthesis is stated.</code></pre>
+<div id="htmlwidget-8a1093016a30083ead9c" style="width:100px;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8a1093016a30083ead9c">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 72]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 1000)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 20)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 270)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 270)\"];\n\n    ex [label=\"Records excluded\n(n = 10)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 260)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 240)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 107)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dv">1000</span>, <span class="dv">20</span>, <span class="dv">270</span>, <span class="dv">270</span>, <span class="dv">269</span>, <span class="dv">260</span>, <span class="dv">20</span>, <span class="dv">240</span>, <span class="dv">107</span>, </a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">       <span class="dt">width =</span> <span class="dv">100</span>, <span class="dt">height =</span> <span class="dv">100</span>)</a></code></pre></div>
+<pre><code>## Warning in prisma(1000, 20, 270, 270, 269, 260, 20, 240, 107, width =
+## 100, : After screening exclusions, a different number of remaining full-
+## text articles is stated.</code></pre>
+<div id="htmlwidget-e2f75bed3a406e8a6794" style="width:100px;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e2f75bed3a406e8a6794">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 72]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 1000)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 20)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 270)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 270)\"];\n\n    ex [label=\"Records excluded\n(n = 269)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 260)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 240)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 107)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="take-care-modifying-the-width-height-and-dpi" class="section level1">
+<h1>Take care modifying the width, height and DPI</h1>
+<p>For publication quality graphics, a certain number of DPI is often requested. This is difficult to achieve with the chain of tools that PRISMAstatement uses (DiagrammeR, htmlwidgets), and also affected by the output container which may be a PDF vignette, file, browser window, etc..</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dt">found =</span> <span class="dv">750</span>,</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">       <span class="dt">found_other =</span> <span class="dv">123</span>,</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">       <span class="dt">no_dupes =</span> <span class="dv">776</span>, </a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">       <span class="dt">screened =</span> <span class="dv">776</span>, </a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">       <span class="dt">screen_exclusions =</span> <span class="dv">13</span>, </a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">       <span class="dt">full_text =</span> <span class="dv">763</span>,</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">       <span class="dt">full_text_exclusions =</span> <span class="dv">17</span>, </a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">       <span class="dt">qualitative =</span> <span class="dv">746</span>, </a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">       <span class="dt">quantitative =</span> <span class="dv">319</span>,</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">       <span class="dt">width =</span> <span class="dv">200</span>, <span class="dt">height =</span> <span class="dv">200</span>)</a></code></pre></div>
 <div class="figure">
-<div id="htmlwidget-380ec5c77c050f35bbe0" style="width:200px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-380ec5c77c050f35bbe0">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 72]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\nwith reasons\n(n = 17)\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ceaf584902d9df9e2945" style="width:200px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ceaf584902d9df9e2945">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 72]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 just set width and height
 </p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dt">found =</span> <span class="dv">750</span>,</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">       <span class="dt">found_other =</span> <span class="dv">123</span>,</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">       <span class="dt">no_dupes =</span> <span class="dv">776</span>, </a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">       <span class="dt">screened =</span> <span class="dv">776</span>, </a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">       <span class="dt">screen_exclusions =</span> <span class="dv">13</span>, </a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">       <span class="dt">full_text =</span> <span class="dv">763</span>,</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">       <span class="dt">full_text_exclusions =</span> <span class="dv">17</span>, </a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">       <span class="dt">qualitative =</span> <span class="dv">746</span>, </a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">       <span class="dt">quantitative =</span> <span class="dv">319</span>,</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">       <span class="dt">width =</span> <span class="dv">200</span>, <span class="dt">height =</span> <span class="dv">200</span>,</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">       <span class="dt">dpi =</span> <span class="dv">300</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dt">found =</span> <span class="dv">750</span>,</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">       <span class="dt">found_other =</span> <span class="dv">123</span>,</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">       <span class="dt">no_dupes =</span> <span class="dv">776</span>, </a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">       <span class="dt">screened =</span> <span class="dv">776</span>, </a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">       <span class="dt">screen_exclusions =</span> <span class="dv">13</span>, </a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">       <span class="dt">full_text =</span> <span class="dv">763</span>,</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">       <span class="dt">full_text_exclusions =</span> <span class="dv">17</span>, </a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">       <span class="dt">qualitative =</span> <span class="dv">746</span>, </a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">       <span class="dt">quantitative =</span> <span class="dv">319</span>,</a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">       <span class="dt">width =</span> <span class="dv">200</span>, <span class="dt">height =</span> <span class="dv">200</span>,</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11">       <span class="dt">dpi =</span> <span class="dv">300</span>)</a></code></pre></div>
 <div class="figure">
-<div id="htmlwidget-d33157b4b946290111f7" style="width:200px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d33157b4b946290111f7">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 300]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\nwith reasons\n(n = 17)\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-50b034cdbada766a5c2d" style="width:200px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-50b034cdbada766a5c2d">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 300]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 same width and height but DPI increased to 300
 </p>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dt">found =</span> <span class="dv">750</span>,</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">       <span class="dt">found_other =</span> <span class="dv">123</span>,</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">       <span class="dt">no_dupes =</span> <span class="dv">776</span>, </a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">       <span class="dt">screened =</span> <span class="dv">776</span>, </a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">       <span class="dt">screen_exclusions =</span> <span class="dv">13</span>, </a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">       <span class="dt">full_text =</span> <span class="dv">763</span>,</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">       <span class="dt">full_text_exclusions =</span> <span class="dv">17</span>, </a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">       <span class="dt">qualitative =</span> <span class="dv">746</span>, </a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">       <span class="dt">quantitative =</span> <span class="dv">319</span>,</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">       <span class="dt">width =</span> <span class="dv">200</span>, <span class="dt">height =</span> <span class="dv">200</span>,</a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">       <span class="dt">dpi =</span> <span class="dv">36</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">prisma</span>(<span class="dt">found =</span> <span class="dv">750</span>,</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">       <span class="dt">found_other =</span> <span class="dv">123</span>,</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">       <span class="dt">no_dupes =</span> <span class="dv">776</span>, </a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">       <span class="dt">screened =</span> <span class="dv">776</span>, </a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">       <span class="dt">screen_exclusions =</span> <span class="dv">13</span>, </a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">       <span class="dt">full_text =</span> <span class="dv">763</span>,</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">       <span class="dt">full_text_exclusions =</span> <span class="dv">17</span>, </a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">       <span class="dt">qualitative =</span> <span class="dv">746</span>, </a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">       <span class="dt">quantitative =</span> <span class="dv">319</span>,</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">       <span class="dt">width =</span> <span class="dv">200</span>, <span class="dt">height =</span> <span class="dv">200</span>,</a>
+<a class="sourceLine" id="cb12-11" data-line-number="11">       <span class="dt">dpi =</span> <span class="dv">36</span>)</a></code></pre></div>
 <div class="figure">
-<div id="htmlwidget-83e2e6ab542b37845739" style="width:200px;height:200px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-83e2e6ab542b37845739">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 36]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\nwith reasons\n(n = 17)\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ac081578dc131f5e28f0" style="width:200px;height:200px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ac081578dc131f5e28f0">{"x":{"diagram":"digraph prisma {\n\n    node [shape=\"box\"];\n    graph [splines=ortho, nodesep=1, dpi = 36]\n\n    a -> nodups;\n    b -> nodups;\n    a [label=\"Records identified through\ndatabase searching\n(n = 750)\"];\n    b [label=\"Additional records identified\nthrough other sources\n(n = 123)\"]\n\n    nodups -> incex;\n    nodups [label=\"Records after duplicates removed\n(n = 776)\"];\n\n    incex -> {ex; ft}\n    incex [label=\"Records screened\n(n = 776)\"];\n\n    ex [label=\"Records excluded\n(n = 13)\"];\n    {rank=same; incex ex}\n\n    ft -> {qual; ftex};\n    ft [label=\"Full-text articles assessed\nfor eligibility\n(n = 763)\"];\n    {rank=same; ft ftex}\n    ftex [label=\"Full-text articles excluded,\"];\n\n    qual -> quant\n    qual [label=\"Studies included in qualitative synthesis\n(n = 746)\"];\n\n    quant [label=\"Studies included in\nquantitative synthesis\n(meta-analysis)\n(n = 319)\"];\n  }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 same width and height but DPI decreased to 36
 </p>
