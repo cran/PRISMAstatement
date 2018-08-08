@@ -80,3 +80,20 @@ prisma(found = 750,
        width = 200, height = 200,
        dpi = 36)
 
+## ----prismapdf, echo = TRUE, eval = FALSE--------------------------------
+#  prsm <- prisma(found = 750,
+#                 found_other = 123,
+#                 no_dupes = 776,
+#                 screened = 776,
+#                 screen_exclusions = 13,
+#                 full_text = 763,
+#                 full_text_exclusions = 17,
+#                 qualitative = 746,
+#                 quantitative = 319,
+#                 width = 200, height = 200,
+#                 dpi = 36)
+#  tmp_pdf <- tempfile()
+#  PRISMAstatement:::prisma_pdf(prsm, tmp_pdf)
+#  knitr::include_graphics(path = tmp_pdf)
+#  unlink(tmp_pdf)
+
