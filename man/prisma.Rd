@@ -2,6 +2,7 @@
 % Please edit documentation in R/prisma.r
 \name{prisma}
 \alias{prisma}
+\alias{prisma_graph}
 \title{Generate a PRISMA statement flow chart}
 \source{
 \url{http://prisma-statement.org/PRISMAStatement/FlowDiagram}
@@ -9,7 +10,13 @@
 \usage{
 prisma(found, found_other, no_dupes, screened, screen_exclusions,
   full_text, full_text_exclusions, qualitative, quantitative = NULL,
-  labels = NULL, extra_dupes_box = FALSE, ..., dpi = 72)
+  labels = NULL, extra_dupes_box = FALSE, ..., dpi = 72,
+  font_size = 10)
+
+prisma_graph(found, found_other, no_dupes, screened, screen_exclusions,
+  full_text, full_text_exclusions, qualitative, quantitative = NULL,
+  labels = NULL, extra_dupes_box = FALSE, ..., dpi = 72,
+  font_size = 10)
 }
 \arguments{
 \item{found}{Records found through database searching}
@@ -45,34 +52,43 @@ of duplicates removed, calculated from the other numbers.}
 \item{dpi}{Dots per inch, 72 is the default here, and in \code{DiagrammeR}
 itself it claims to be 96. Varying the DPI (which is done in the DOT file)
 unfortunately does not get detected by the downstream processing by the
-'htmlwidgets' package. To overcome this, the user can add `height` and
-`width` arguments which are passed through. It is easy to for scaled graphs
+'htmlwidgets' package. To overcome this, the user can add \code{height} and
+\code{width} arguments which are passed through. It is easy to for scaled graphs
 to fall off the canvas, or be crushed into the top-left corner, and
 unfortunately this requires trial and error. Increasing DPI over 72 with
 this setting tends to truncate the graph. On the other hand, leaving the
 DPI at 72 and increasing both height and width appears to consistently give
 higher resolution images.}
+
+\item{font_size}{integer font size in points, default is 10. \code{DiagrammeR} via
+\code{htmlwidgets} should scale the boxes to include the text no matter what
+size font is used. However, the heuristics are not perfect, so tweaking the
+font size here may help prepare for publication.}
 }
 \description{
 Generate PRISMA statement flow chart for use in retrospective medical
 research. Almost all arguments are mandatory, as they are in the recommended
 PRISMA statement.
 }
+\section{Functions}{
+\itemize{
+\item \code{prisma_graph}: Generate the `dot` graph text
+}}
+
 \examples{
 prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107)
 prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107,
        labels = list(found = "FOUND"))
 prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, dpi = 24)
 prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, extra_dupes_box = TRUE)
+# vary the font size
+prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, font_size = 6)
+prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, font_size = 60)
 # giving impossible numbers should cause an error
-tryCatch(
-  prisma(1, 2, 3, 4, 5, 6, 7, 8, 9),
-  error = function(e) e$message)
+\dontrun{
+  prisma(1, 2, 3, 4, 5, 6, 7, 8, 9)
 # giving unlikely numbers should cause a warning
-tryCatch(
-  prisma(1000, 20, 270, 270, 10, 260, 19, 240, 107),
-  warning = function(w) w$message)
-tryCatch(
-  prisma(1000, 20, 270, 270, 269, 260, 20, 240, 107),
-  warning = function(w) w$message)
+  prisma(1000, 20, 270, 270, 10, 260, 19, 240, 107)
+  prisma(1000, 20, 270, 270, 269, 260, 20, 240, 107)
+}
 }

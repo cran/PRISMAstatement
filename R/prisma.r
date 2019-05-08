@@ -13,6 +13,14 @@
 #' @param qualitative Studies included in qualitative analysis
 #' @param quantitative Studies included in quantitative synthesis
 #'   (meta-analysis)
+#' @param labels \code{NULL} is the default, but if a named list of character
+#'   strings, the box matching each name will get the corresponding label. See
+#'   examples.
+#' @param extra_dupes_box Single logical value, default is \code{FALSE} which
+#'   corresponds to the example 2009 PRISMA Statement Flow Chart. If
+#'   \code{TRUE}, then an additional box will be presented indicating the number
+#'   of duplicates removed, calculated from the other numbers.
+#' @param ... Further arguments are passed to \code{grViz}
 #' @param dpi Dots per inch, 72 is the default here, and in \code{DiagrammeR}
 #'   itself it claims to be 96. Varying the DPI (which is done in the DOT file)
 #'   unfortunately does not get detected by the downstream processing by the
@@ -23,14 +31,10 @@
 #'   this setting tends to truncate the graph. On the other hand, leaving the
 #'   DPI at 72 and increasing both height and width appears to consistently give
 #'   higher resolution images.
-#' @param labels \code{NULL} is the default, but if a named list of character
-#'   strings, the box matching each name will get the corresponding label. See
-#'   examples.
-#' @param ... Further arguments are passed to \code{grViz}
-#' @param extra_dupes_box Single logical value, default is \code{FALSE} which
-#'   corresponds to the example 2009 PRISMA Statement Flow Chart. If
-#'   \code{TRUE}, then an additional box will be presented indicating the number
-#'   of duplicates removed, calculated from the other numbers.
+#' @param font_size integer font size in points, default is 10. `DiagrammeR` via
+#'   `htmlwidgets` should scale the boxes to include the text no matter what
+#'   size font is used. However, the heuristics are not perfect, so tweaking the
+#'   font size here may help prepare for publication.
 #' @source \url{http://prisma-statement.org/PRISMAStatement/FlowDiagram}
 #' @examples
 #' prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107)
@@ -38,17 +42,17 @@
 #'        labels = list(found = "FOUND"))
 #' prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, dpi = 24)
 #' prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, extra_dupes_box = TRUE)
+#' # vary the font size
+#' prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, font_size = 6)
+#' prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, font_size = 60)
 #' # giving impossible numbers should cause an error
-#' tryCatch(
-#'   prisma(1, 2, 3, 4, 5, 6, 7, 8, 9),
-#'   error = function(e) e$message)
+#' \dontrun{
+#'   prisma(1, 2, 3, 4, 5, 6, 7, 8, 9)
 #' # giving unlikely numbers should cause a warning
-#' tryCatch(
-#'   prisma(1000, 20, 270, 270, 10, 260, 19, 240, 107),
-#'   warning = function(w) w$message)
-#' tryCatch(
-#'   prisma(1000, 20, 270, 270, 269, 260, 20, 240, 107),
-#'   warning = function(w) w$message)
+#'   prisma(1000, 20, 270, 270, 10, 260, 19, 240, 107)
+#'   prisma(1000, 20, 270, 270, 269, 260, 20, 240, 107)
+#' }
+#' @md
 #' @export
 prisma <- function(found,
                    found_other,
@@ -61,7 +65,43 @@ prisma <- function(found,
                    quantitative = NULL,
                    labels = NULL,
                    extra_dupes_box = FALSE,
-                   ..., dpi = 72) {
+                   ...,
+                   dpi = 72,
+                   font_size = 10) {
+  DiagrammeR::grViz(
+    prisma_graph(found = found,
+                 found_other = found_other,
+                 no_dupes = no_dupes,
+                 screened = screened,
+                 screen_exclusions = screen_exclusions,
+                 full_text = full_text,
+                 full_text_exclusions = full_text_exclusions,
+                 qualitative = qualitative,
+                 quantitative = quantitative,
+                 labels = labels,
+                 extra_dupes_box = extra_dupes_box,
+                 dpi = dpi,
+                 font_size = font_size,
+                 ...)
+  )
+}
+
+#' @describeIn prisma Generate the `dot` graph text
+#' @export
+prisma_graph <- function(found,
+                         found_other,
+                         no_dupes,
+                         screened,
+                         screen_exclusions,
+                         full_text,
+                         full_text_exclusions,
+                         qualitative,
+                         quantitative = NULL,
+                         labels = NULL,
+                         extra_dupes_box = FALSE,
+                         ...,
+                         dpi = 72,
+                         font_size = 10) {
   stopifnot(length(found) == 1)
   stopifnot(length(found_other) == 1)
   stopifnot(length(no_dupes) == 1)
@@ -106,7 +146,7 @@ prisma <- function(found,
     warning("After full-text exclusions, a different number of remaining ",
             "articles for qualitative synthesis is stated.")
   dupes <- found + found_other - no_dupes
-  labels_ <- list(
+  labels_orig <- list(
     found = pnl("Records identified through",
                 "database searching",
                 paren(found)),
@@ -132,8 +172,8 @@ prisma <- function(found,
                        paren(quantitative))
   )
   for (l in names(labels))
-    labels_[[l]] <- labels[[l]]
-  labels <- labels_
+    labels_orig[[l]] <- labels[[l]]
+  labels <- labels_orig
   dupes_box <- sprintf(
     'nodups -> incex;
     nodups [label="%s"];',
@@ -146,7 +186,7 @@ prisma <- function(found,
       labels$no_dupes, labels$dupes)
 
   dot_template <- 'digraph prisma {
-    node [shape="box"];
+    node [shape="box", fontsize = %d];
     graph [splines=ortho, nodesep=1, dpi = %d]
     a -> nodups;
     b -> nodups;
@@ -165,9 +205,8 @@ prisma <- function(found,
     qual [label="%s"];
     quant [label="%s"];
   }'
-
-  DiagrammeR::grViz(
     sprintf(dot_template,
+            font_size,
             dpi,
             labels$found,
             labels$found_other,
@@ -177,8 +216,7 @@ prisma <- function(found,
             labels$full_text,
             labels$full_text_exclusions,
             labels$qualitative,
-            labels$quantitative),
-    ...)
+            labels$quantitative)
 }
 
 paren <- function(n)
@@ -203,12 +241,36 @@ pnl <- function(...)
 prisma_pdf <- function(x, filename = "prisma.pdf") {
   if (!requireNamespace("DiagrammeRsvg", quietly = TRUE) ||
       !requireNamespace("rsvg", quietly = TRUE)) {
-    message("DiagrammeRsvg and rsvg are both required for this prisma_pdf")
-    return()
+    stop("DiagrammeRsvg and rsvg are both required for this prisma_pdf")
   }
   utils::capture.output({
     rsvg::rsvg_pdf(svg = charToRaw(DiagrammeRsvg::export_svg(x)),
                    file = filename)
+  })
+  invisible()
+}
+
+#' @describeIn prisma_pdf Export using any conversion function offered by `rsvg`
+#' @param rsvg_fun Function from `rsvg` default being `rsvg::rsvg_png`
+#' @param ... Passed to `rsvg_fun`
+#' @examples
+#' \dontrun{
+#' g_dot <- prisma_graph(9, 8, 7, 6, 1, 5, 1, 4, 1)
+#' prisma_export(g_dot, "test.png", rsvg_fun = rsvg::rsvg_png)
+#' }
+#' @export
+prisma_export <- function(x,
+                          filename = "prisma.png",
+                          rsvg_fun = rsvg::rsvg_png,
+                          ...) {
+  if (!requireNamespace("DiagrammeRsvg", quietly = TRUE) ||
+      !requireNamespace("rsvg", quietly = TRUE)) {
+    stop("DiagrammeRsvg and rsvg are both required for exporting PRISMA charts")
+  }
+  DiagrammeR::export_graph(x, file_name = filename, )
+  utils::capture.output({
+    rsvg_fun(svg = charToRaw(DiagrammeRsvg::export_svg(x)),
+             file = filename)
   })
   invisible()
 }

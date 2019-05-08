@@ -2,6 +2,9 @@
 knitr::opts_chunk$set(echo = TRUE)
 suppressPackageStartupMessages(library(DiagrammeR))
 
+## ----pkgdesc, results = "asis", echo = FALSE-----------------------------
+cat(packageDescription("PRISMAstatement")$Description)
+
 ## ----prisma--------------------------------------------------------------
 #install.packages("PRISMAstatement")
 library(PRISMAstatement)
@@ -41,6 +44,10 @@ prisma(1000, 20, 270, 270, 10, 260, 19, 240, 107,
        width = 100, height = 100)
 prisma(1000, 20, 270, 270, 269, 260, 20, 240, 107, 
        width = 100, height = 100)
+
+## ----font_size-----------------------------------------------------------
+prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, font_size = 6)
+prisma(1000, 20, 270, 270, 10, 260, 20, 240, 107, font_size = 60)
 
 ## ----prismadpi1, fig.cap="just set width and height"---------------------
 prisma(found = 750,
